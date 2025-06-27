@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Professional Resume Builder</title>
+  <link rel="stylesheet" href="stylebuilder.css">
+</head>
+<body>
+
+  <h1>📝 Resume Builder</h1>
+
+  <div class="container">
+    <div class="form-section">
+      <h3>👤 Personal Info</h3>
+      <input id="name" placeholder="Full Name" />
+      <input id="location" placeholder="City, State" />
+      <input id="phone" placeholder="Phone Number" />
+      <input id="email" placeholder="Email Address" />
+      <input id="linkedin" placeholder="LinkedIn URL" />
+      <input id="github" placeholder="GitHub URL" />
+      <input type="file" id="photo" accept="image/*" />
+
+      <h3>🎓 Education</h3>
+      <input id="grad-institute" placeholder="Graduation Institute" />
+      <input id="grad-duration" placeholder="Graduation Duration" />
+      <input id="grad-degree" placeholder="Graduation Degree, CGPA, Location" />
+
+      <input id="inter-institute" placeholder="12th School Name" />
+      <input id="inter-duration" placeholder="12th Duration" />
+      <input id="inter-detail" placeholder="12th Stream, %, City" />
+
+      <input id="matric-institute" placeholder="10th School Name" />
+      <input id="matric-duration" placeholder="10th Duration" />
+      <input id="matric-detail" placeholder="10th %, City" />
+
+      <h3>💻 Skills</h3>
+      <textarea id="skills" placeholder="E.g. HTML, CSS, JavaScript, Java..."></textarea>
+
+      <h3>🚀 Projects</h3>
+      <textarea id="projects" placeholder="Project Name - Stack - Description"></textarea>
+
+      <h3>🧪 Internships</h3>
+      <textarea id="internships" placeholder="Company - Role - Work Summary"></textarea>
+
+      <h3>📜 Certifications</h3>
+      <textarea id="certifications" placeholder="List your certifications"></textarea>
+
+      <h3>🏅 Extracurricular</h3>
+      <textarea id="extracurricular" placeholder="Events, Achievements, Hackathons"></textarea>
+
+      <button class="btn" onclick="generateResume()">Generate Resume</button>
+      <button class="btn" onclick="downloadPDF()">Download PDF</button>
+    </div>
+
+    <div class="preview-section">
+      <h3>📄 Live Resume Preview</h3>
+      <div id="resume">
+        <img id="photo-preview" />
+        <h2 id="r-name">Your Name</h2>
+        <div class="info-line" id="r-location">Your City</div>
+        <div class="info-line">
+          📞 <span id="r-phone"></span> | 📧 <span id="r-email"></span>
+        </div>
+        <div class="info-line">
+          <a id="r-linkedin" href="#" target="_blank">LinkedIn</a> |
+          <a id="r-github" href="#" target="_blank">GitHub</a>
+        </div>
+
+        <div class="section-title">EDUCATION</div>
+        <ul>
+          <li><b id="r-grad-institute"></b> (<span id="r-grad-duration"></span>)<br/>
+            <i id="r-grad-degree"></i></li>
+          <li><b id="r-inter-institute"></b> (<span id="r-inter-duration"></span>)<br/>
+            <i id="r-inter-detail"></i></li>
+          <li><b id="r-matric-institute"></b> (<span id="r-matric-duration"></span>)<br/>
+            <i id="r-matric-detail"></i></li>
+        </ul>
+
+        <div class="section-title">COURSEWORK / SKILLS</div>
+        <ul><li id="r-skills"></li></ul>
+
+        <div class="section-title">PROJECTS</div>
+        <ul><li id="r-projects"></li></ul>
+
+        <div class="section-title">INTERNSHIP</div>
+        <ul><li id="r-internships"></li></ul>
+
+        <div class="section-title">CERTIFICATIONS</div>
+        <ul><li id="r-certifications"></li></ul>
+
+        <div class="section-title">EXTRACURRICULAR</div>
+        <ul><li id="r-extracurricular"></li></ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <script>
+    function generateResume() {
+      document.getElementById("r-name").innerText = document.getElementById("name").value;
+      document.getElementById("r-location").innerText = document.getElementById("location").value;
+      document.getElementById("r-phone").innerText = document.getElementById("phone").value;
+      document.getElementById("r-email").innerText = document.getElementById("email").value;
+      document.getElementById("r-linkedin").href = document.getElementById("linkedin").value;
+      document.getElementById("r-github").href = document.getElementById("github").value;
+
+      document.getElementById("r-grad-institute").innerText = document.getElementById("grad-institute").value;
+      document.getElementById("r-grad-duration").innerText = document.getElementById("grad-duration").value;
+      document.getElementById("r-grad-degree").innerText = document.getElementById("grad-degree").value;
+
+      document.getElementById("r-inter-institute").innerText = document.getElementById("inter-institute").value;
+      document.getElementById("r-inter-duration").innerText = document.getElementById("inter-duration").value;
+      document.getElementById("r-inter-detail").innerText = document.getElementById("inter-detail").value;
+
+      document.getElementById("r-matric-institute").innerText = document.getElementById("matric-institute").value;
+      document.getElementById("r-matric-duration").innerText = document.getElementById("matric-duration").value;
+      document.getElementById("r-matric-detail").innerText = document.getElementById("matric-detail").value;
+
+      document.getElementById("r-skills").innerText = document.getElementById("skills").value;
+      document.getElementById("r-projects").innerText = document.getElementById("projects").value;
+      document.getElementById("r-internships").innerText = document.getElementById("internships").value;
+      document.getElementById("r-certifications").innerText = document.getElementById("certifications").value;
+      document.getElementById("r-extracurricular").innerText = document.getElementById("extracurricular").value;
+    }
+
+    document.getElementById("photo").addEventListener("change", function () {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById("photo-preview").src = e.target.result;
+      };
+      reader.readAsDataURL(this.files[0]);
+    });
+
+    function downloadPDF() {
+      html2pdf().from(document.getElementById("resume")).save("resume.pdf");
+    }
+  </script>
+</body>
+</html>
